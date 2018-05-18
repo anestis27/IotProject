@@ -1,15 +1,18 @@
-#include <Wire.h>
+ #include <Wire.h>
 
 #include <sl868a.h>
 #include <Arduino.h>
 #include "cc2541.h"
  #include <avr/dtostrf.h>
+ #include <LSM9DS1.h>
 
 int led_status = HIGH;
+int x,y,z=0;
 
 // the setup function runs once when you press reset or power the board
 void setup() {
     SerialUSB.begin(115200);
+    smeAccelerometer.begin();
     smeGps.begin();
     smeBle.begin();
 }
@@ -25,6 +28,17 @@ void loop() {
 
     if (smeGps.ready()) {
         if ((loop_cnt % 2000) == 0) {
+          if((abs((x-smeAccelerometer.readX()))>5)||(abs((y-smeAccelerometer.readY()))>5)||(abs((z-smeAccelerometer.readZ()))>5)){
+              x = smeAccelerometer.readX();
+              y = smeAccelerometer.readY();
+              z = smeAccelerometer.readZ();
+              SerialUSB.print('\n');
+              SerialUSB.println(x);
+              SerialUSB.println(y);
+              SerialUSB.println(z);
+              
+          
+    
             altitude   = smeGps.getAltitude();
             latitude   = smeGps.getLatitude();
             longitude  = smeGps.getLongitude();
@@ -36,7 +50,7 @@ void loop() {
             SerialUSB.print("Altitude    =  ");
             SerialUSB.println(altitude, DEC);
 
-           String latitudeString = double2string(latitude,10000000);
+            String latitudeString = double2string(latitude,10000000);
             String longitudeString = double2string(longitude,10000000);
             String altitudeString = double2string(altitude,10000000);
             char latitudechar[latitudeString.length()+1];
@@ -53,7 +67,12 @@ void loop() {
             //smeBle.write(altitudechar,sizeof(altitudechar));
             //smeBle.write(allthedatachar,sizeof(allthedatachar));
             Serial.println(allthedatachar);
+        }else{
+            x = smeAccelerometer.readX();
+            y = smeAccelerometer.readY();
+            z = smeAccelerometer.readZ();
         }
+       }
     } else {
         if ((loop_cnt % 1000) == 0) {
            SerialUSB.println("Locking GPS position..."); 
