@@ -24,9 +24,6 @@ void loop() {
     delay(5);
 
     if (smeGps.ready()) {
-/*#ifdef ARDUINO_SAMD_SMARTEVERYTHING
-        ledGreenLight(HIGH);
-#endif*/
         if ((loop_cnt % 2000) == 0) {
             altitude   = smeGps.getAltitude();
             latitude   = smeGps.getLatitude();
@@ -66,9 +63,6 @@ void loop() {
     }
 
     loop_cnt++;
-/*#ifdef ARDUINO_SAMD_SMARTEVERYTHING
-    ledGreenLight(led_status);
-#endif*/
 }
 
 

@@ -14,6 +14,10 @@ import com.clj.fastble.callback.BleGattCallback;
 import com.clj.fastble.callback.BleNotifyCallback;
 import com.clj.fastble.data.BleDevice;
 import com.clj.fastble.exception.BleException;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.DecimalFormat;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -25,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String readUUID = "0000fff4-0000-1000-8000-00805f9b34fb";
     private final String MAC = "00:80:98:BC:9B:2E";
     private BleDevice myDevice;
+
 
 
     @Override
@@ -132,8 +137,13 @@ public class MainActivity extends AppCompatActivity {
                                     lat =  str.substring(0,eq);
                                     lon = str.substring(eq+1);//xoris to =
 
+                                    DecimalFormat df = new DecimalFormat("#.######");
+                                    lat = Double.valueOf(df.format(Double.parseDouble(lat)))+""; // rounding the numbers (restoring to the original number)
+                                    lon = Double.valueOf(df.format(Double.parseDouble(lon)))+""; // rounding the numbers (restoring to the original number)
                                     Log.d(TAG, lat +"   "+ lon );
                                     gpsTextView.setText(R.string.ok);
+                                    FireBaseClass.addToDataBase(lat,lon);
+
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
