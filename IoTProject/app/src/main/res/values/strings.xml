@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">IoTProject</string>
+    <string name="problem">Problem</string>
+    <string name="ok">Ok</string>
+    <string name="wait">Wait</string>
+    <string name="refresh_ble">Refresh BLE</string>
 </resources>
