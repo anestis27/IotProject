@@ -1,4 +1,4 @@
- #include <Wire.h>
+#include <Wire.h>
 
 #include <sl868a.h>
 #include <Arduino.h>
@@ -31,41 +31,35 @@ void loop() {
               x = smeAccelerometer.readX();
               y = smeAccelerometer.readY();
               z = smeAccelerometer.readZ();
-              SerialUSB.print('\n');
-              SerialUSB.println(x);
-              SerialUSB.println(y);
-              SerialUSB.println(z);
-              
-          
-    
-            altitude   = smeGps.getAltitude();
-            latitude   = smeGps.getLatitude();
-            longitude  = smeGps.getLongitude();
-            SerialUSB.println(" ");
-            SerialUSB.print("Latitude    =  ");
-            SerialUSB.println(latitude, 6);
-            SerialUSB.print("Longitude   =  ");
-            SerialUSB.println(longitude, 6);
-            SerialUSB.print("Altitude    =  ");
-            SerialUSB.println(altitude, DEC);
-
-            String latitudeString = double2string(latitude,10000000);
-            String longitudeString = double2string(longitude,10000000);
-            String altitudeString = double2string(altitude,10000000);
-            char latitudechar[latitudeString.length()+1];
-            char longitudechar[longitudeString.length()+1];
-            char altitudechar[altitudeString.length()+1];
-            (latitudeString).toCharArray(latitudechar,sizeof(latitudechar)); 
-            (longitudeString).toCharArray(longitudechar,longitudeString.length()); 
-            (altitudeString).toCharArray(altitudechar,altitudeString.length()); 
-            String allthedatastring = latitudeString + "=" +longitudeString;
-            char allthedatachar[allthedatastring.length()];
-            allthedatastring.toCharArray(allthedatachar,allthedatastring.length()); 
-            smeBle.write(allthedatachar,sizeof(allthedatachar));
-            //smeBle.write(longitudechar,sizeof(longitudechar));
-            //smeBle.write(altitudechar,sizeof(altitudechar));
-            //smeBle.write(allthedatachar,sizeof(allthedatachar));
-            Serial.println(allthedatachar);
+              //SerialUSB.print('\n');
+              //SerialUSB.println(x);
+              //SerialUSB.println(y);
+              //SerialUSB.println(z);
+              altitude   = smeGps.getAltitude();
+              latitude   = smeGps.getLatitude();
+              longitude  = smeGps.getLongitude();
+              SerialUSB.println(" ");
+              SerialUSB.print("Latitude    =  ");
+              SerialUSB.println(latitude, 6);
+              SerialUSB.print("Longitude   =  ");
+              SerialUSB.println(longitude, 6);
+              SerialUSB.print("Altitude    =  ");
+              SerialUSB.println(altitude, DEC);
+  
+              String latitudeString = double2string(latitude,10000000);
+              String longitudeString = double2string(longitude,10000000);
+              String altitudeString = double2string(altitude,10000000);
+              char latitudechar[latitudeString.length()+1];
+              char longitudechar[longitudeString.length()+1];
+              char altitudechar[altitudeString.length()+1];
+              (latitudeString).toCharArray(latitudechar,sizeof(latitudechar)); 
+              (longitudeString).toCharArray(longitudechar,longitudeString.length()); 
+              (altitudeString).toCharArray(altitudechar,altitudeString.length()); 
+              String allthedatastring = latitudeString + "=" +longitudeString;
+              char allthedatachar[allthedatastring.length()];
+              allthedatastring.toCharArray(allthedatachar,allthedatastring.length()); 
+              smeBle.write(allthedatachar,sizeof(allthedatachar));
+              Serial.println(allthedatachar);
         }else{
             x = smeAccelerometer.readX();
             y = smeAccelerometer.readY();

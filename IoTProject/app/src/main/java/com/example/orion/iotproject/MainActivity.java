@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String servUUID = "0000fff0-0000-1000-8000-00805f9b34fb";
     private static final String readUUID = "0000fff4-0000-1000-8000-00805f9b34fb";
     private String MAC = "00:80:98:BC:9B:2E";
+    private String prevData;
     private BleDevice myDevice;
     final Context context = this;
 
@@ -200,11 +201,14 @@ public class MainActivity extends AppCompatActivity {
                                         Log.d(TAG, "GPS problem");
                                         return;
                                     }
+                                    if(prevData==str){
+                                        return;
+                                    }
+                                    prevData = str;
                                     String lat, lon;
                                     int eq = str.indexOf('=');
                                     lat = str.substring(0, eq);
                                     lon = str.substring(eq + 1);//xoris to =
-
                                     DecimalFormat df = new DecimalFormat("#.######");
                                     lat = Double.valueOf(df.format(Double.parseDouble(lat))) + ""; // rounding the numbers (restoring to the original number)
                                     lon = Double.valueOf(df.format(Double.parseDouble(lon))) + ""; // rounding the numbers (restoring to the original number)
