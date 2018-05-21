@@ -3,8 +3,7 @@
 #include <sl868a.h>
 #include <Arduino.h>
 #include "cc2541.h"
- #include <avr/dtostrf.h>
- #include <LSM9DS1.h>
+#include <LSM9DS1.h>
 
 int led_status = HIGH;
 int x,y,z=0;
