@@ -201,10 +201,6 @@ public class MainActivity extends AppCompatActivity {
                                         Log.d(TAG, "GPS problem");
                                         return;
                                     }
-                                    if(prevData==str){
-                                        return;
-                                    }
-                                    prevData = str;
                                     String lat, lon;
                                     int eq = str.indexOf('=');
                                     lat = str.substring(0, eq);
